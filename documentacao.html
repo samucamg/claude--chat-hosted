@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentacao do Sistema Claude Workspace</title>
+    <style>
+        :root { --bg: #f9fafb; --card: #ffffff; --text: #1f2937; --accent: #cb7b58; --border: #e5e7eb; }
+        body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { color: var(--accent); font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; color: #6b7280; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        h2 { border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-top: 0; color: #111827; }
+        code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #ef4444; }
+        pre { background: #1f2937; color: #f3f4f6; padding: 15px; border-radius: 8px; overflow-x: auto; }
+        .steps { list-style: none; padding: 0; }
+        .steps li { background: #f9fafb; margin-bottom: 10px; padding: 15px; border-left: 4px solid var(--accent); border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Workspace AI Stateless</h1>
+            <p>Guia de Instalacao, Operacao e Arquitetura do Sistema</p>
+        </div>
+
+        <div class="card">
+            <h2>🚀 Como Instalar e Configurar</h2>
+            <ul class="steps">
+                <li><strong>1. Acesse o Instalador:</strong> Va para o seu navegador e digite a URL da pasta (Ex: <code>seudominio.com/claude/install_claude/install.php</code>).</li>
+                <li><strong>2. Insira as Credenciais:</strong> Preencha o formulario com o <b>Endpoint Base</b> e a <b>Chave da API</b> que voce possui.</li>
+                <li><strong>3. Conclua:</strong> O script criara o arquivo estrito <code>config.json</code> de forma automatica, conectando a interface ao proxy.</li>
+                <li><strong>4. Seguranca:</strong> Apos verificar que o chat esta funcionando, acesse o servidor e <b>apague o arquivo install.php</b> para evitar que outras pessoas alterem sua chave.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🧠 Como o Sistema Funciona (Stateless)</h2>
+            <p>O sistema abandonou o uso de banco de dados MySQL para garantir extrema velocidade e baixo consumo no servidor.</p>
+            <ul>
+                <li><strong>Sem Banco de Dados:</strong> O historico das conversas e salvo instantaneamente no navegador do usuario usando <code>localStorage</code>.</li>
+                <li><strong>Fatiamento de Memoria:</strong> Apenas as ultimas X mensagens (baseado no "Contexto" selecionado na tela) sao enviadas para a API a cada requisicao, prevenindo estouros no limite de Tokens.</li>
+                <li><strong>Proxy Seguro:</strong> Toda comunicacao com a Anthropic passa pelo <code>api.php</code>, ocultando sua chave de API do usuario final.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🖼️ Processamento de Anexos</h2>
+            <p>A arquitetura foi desenhada para otimizar arquivos antes que cheguem na API:</p>
+            <ul>
+                <li><strong>Imagens (GD Library):</strong> O servidor comprime automaticamente JPGs, PNGs ou WEBPs grandes. Reduz a resolucao para um maximo de 512px e injeta a qualidade a 65%, prevenindo erros de Proxy (Erro 422 - Payload Too Large).</li>
+                <li><strong>Arquivos PDF (pdftotext):</strong> O script processa nativamente PDFs no servidor Linux via <code>shell_exec</code>, extrai o texto puro e limpa caracteres invisiveis antes de acoplar na variavel de envio para a API.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
