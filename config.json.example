@@ -1,0 +1,33 @@
+cat config.json.example
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "",
+    "ANTHROPIC_BASE_URL": "",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-7",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL_NAME": "Opus 4.7",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION": "Opus 4.7 Most capable for complex work",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "Sonnet 4.6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL_DESCRIPTION": "Sonnet 4.6 Fast and intelligent",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5-20251001",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL_NAME": "Haiku 4.5",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL_DESCRIPTION": "Haiku 4.5 Fastest for quick answers"
+  },
+  "model": "claude-sonnet-4-6",
+  "availableModels": [
+    "claude-opus-4-7",
+    "claude-opus-4-8",
+    "claude-sonnet-4-6",
+    "claude-haiku-4-5-20251001"
+  ],
+  "modelOverrides": {
+    "claude-opus-4-8": "claude-opus-4-8",
+    "claude-opus-4-7": "claude-opus-4-7"
+  },
+  "syntaxHighlightingDisabled": true,
+  "autoUpdatesChannel": "latest",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "skipWorkflowUsageWarning": true
+}
+[root@veroclass install_claude]# 
